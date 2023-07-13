@@ -5,14 +5,14 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h2>{{ $post['title'] }}</h2>
+                    <h2 class="cart-title">{{ $post['title'] }}</h2>
                 </div>
                 <div class="card-body">
-                    {{ $post['content'] }}
+                    <p class="cart-text">{{ $post['content'] }}</p>
+                    <img src="https://dummyimage.com/1200x300" class="img-fluid" alt="изображение">
                 </div>
                 <div class="card-footer">
-                    Автор: {{ $post['name'] }}
-                    | Создан: {{ $post['post_created_at'] }}
+                    <span class="text-muted">Автор: {{ $post['name'] }} | Опубликовано: {{ $post['post_created_at'] }}</span>
                 </div>
             </div>
         </div>
