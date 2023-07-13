@@ -8,3 +8,4 @@
 6.  Реализовал методы index и show в PostController
 7.  Реализовал поиск по содержанию постов
 8.  Реализовал метод create в PostController
+9.  Реализовал метод store в PostController

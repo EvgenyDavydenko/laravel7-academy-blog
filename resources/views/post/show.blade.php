@@ -9,7 +9,7 @@
                 </div>
                 <div class="card-body">
                     <p class="cart-text">{{ $post['content'] }}</p>
-                    <img src="https://dummyimage.com/1200x300" class="img-fluid" alt="изображение">
+                    <img src="{{ $post['img'] ?? 'https://dummyimage.com/1200x300' }}" class="img-fluid" alt="изображение">
                 </div>
                 <div class="card-footer">
                     <span class="text-muted">Автор: {{ $post['name'] }} | Опубликовано: {{ $post['post_created_at'] }}</span>

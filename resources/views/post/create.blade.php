@@ -1,7 +1,7 @@
 @extends('layout.main')
 
 @section('content')
-    <form action="#" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <h3>Создать пост</h3>
         <div class="form-group">
