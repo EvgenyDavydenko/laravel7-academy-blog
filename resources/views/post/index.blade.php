@@ -5,7 +5,7 @@
         @if($posts->count())
             @foreach($posts as $post)
             <div class="col-6 mb-4">
-                <div class="card">
+                <div class="card h-100">
                     <div class="card-header">
                         <h5 class="cart-title">{{ $post['title'] }}</h5>
                     </div>

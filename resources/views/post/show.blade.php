@@ -5,6 +5,10 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
+                    <p class="float-right">              
+                        <a href="{{ route('posts.edit', ['id'=>$post['post_id']]) }}" class="btn btn-outline-primary my-2 my-sm-0">Редактировать</a>
+                        <a href="{{ route('posts.destroy') }}" class="btn btn-outline-danger my-2 my-sm-0">Удалить</a>
+                    </p>
                     <h2 class="cart-title">{{ $post['title'] }}</h2>
                 </div>
                 <div class="card-body">

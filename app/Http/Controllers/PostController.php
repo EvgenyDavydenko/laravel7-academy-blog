@@ -74,7 +74,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::select('title', 'content', 'img', 'name', 'posts.created_at as post_created_at' )
+        $post = Post::select('posts.id as post_id', 'title', 'content', 'img', 'name', 'posts.created_at as post_created_at' )
                     ->join('users', 'posts.author_id', '=', 'users.id')
                     ->find($id);
         return view('post.show', ['post' => $post]);
@@ -86,9 +86,10 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        return view('post.edit', ['post' => $post]);
     }
 
     /**
