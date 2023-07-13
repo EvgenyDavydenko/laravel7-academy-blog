@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('layout.main', ['title'=>'Главная страница'])
 
 @section('content')
     <div class="row">
@@ -22,7 +22,7 @@
             </div>
             @endforeach
         @else
-        <h2>По запросу <strong><?=$_GET['search']?></strong> ничего не найдено...</h2>
+            <h2>По запросу <strong><?=$_GET['search']?></strong> ничего не найдено...</h2>
         @endif
     </div>
     {{ $posts->appends(['search'=>request()->search])->links() }}

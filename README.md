@@ -10,3 +10,4 @@
 8.  Реализовал метод create в PostController
 9.  Реализовал метод store в PostController
 10. Реализовал метод edit в PostController
+11. Реализовал методы update и destroy в PostController

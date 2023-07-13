@@ -57,6 +57,7 @@ class PostController extends Controller
         $post->content = $request->content;
         $post->anons = Str::length($request->content) > 100 ? Str::substr($request->content, 0, 100) . '...' : $request->content;
         if ($request->file('img')) {
+            // php artisan storage:link
             $path = Storage::putFile('public', $request->file('img'));
             $url = Storage::url($path);
             $post->img = $url;
@@ -99,9 +100,20 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $id)
     {
-        //
+        $post = Post::find($id);
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->anons = Str::length($request->content) > 100 ? Str::substr($request->content, 0, 100) . '...' : $request->content;
+        if ($request->file('img')) {
+            $path = Storage::putFile('public', $request->file('img'));
+            $url = Storage::url($path);
+            $post->img = $url;
+        }
+
+        $post->update();
+        return redirect()->route('posts.show', ['id' => $id])->with('success', 'Ваш пост успешно отредактирован!');
     }
 
     /**
@@ -110,8 +122,10 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+        $post->delete();
+        return redirect()->route('posts.index')->with('success', 'Ваш пост успешно удален!');
     }
 }
