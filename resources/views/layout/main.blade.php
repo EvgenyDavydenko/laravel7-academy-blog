@@ -16,7 +16,7 @@
                 <a class="nav-link" href="{{ route('posts.index') }}">Главная<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active offset-3">
-                <a class="nav-link" href="#">Создать пост<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{{ route('posts.create') }}">Создать пост<span class="sr-only">(current)</span></a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" action="{{ route('posts.index') }}">
