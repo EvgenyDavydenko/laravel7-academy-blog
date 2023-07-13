@@ -14,7 +14,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::select('posts.id as post_id', 'title', 'anons', 'name', 'posts.created_at as post_created_at' )
+                    ->join('users', 'posts.author_id', '=', 'users.id')
+                    ->orderBy('post_created_at', 'desc')
+                    ->paginate(6);
         return view('post.index', ['posts' => $posts]);
     }
 
@@ -45,9 +48,12 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        //
+        $post = Post::select('title', 'content', 'name', 'posts.created_at as post_created_at' )
+                    ->join('users', 'posts.author_id', '=', 'users.id')
+                    ->find($id);
+        return view('post.show', ['post' => $post]);
     }
 
     /**

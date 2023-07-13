@@ -5,3 +5,4 @@
 3.  Создал фабрику для модели постов и заполнил ее фэйковыми данными: `php artisan make:factory PostFactory --model=Models/Post; php artisan db:seed`
 4.  Создал контроллер ресурсов для модели постов: `php artisan make:controller PostController --resource --model=Models/Post`
 5.  Добавил в проект css фреймворк Bootstrap: `composer require laravel/ui:^2.4; php artisan ui bootstrap; npm install; npm run dev (export NODE_OPTIONS=--openssl-legacy-provider)`
+6.  Реализовал методы index и show в PostController
