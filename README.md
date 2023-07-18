@@ -11,3 +11,4 @@
 9.  Реализовал метод store в PostController
 10. Реализовал метод edit в PostController
 11. Реализовал методы update и destroy в PostController
+12. Валидация создания и редактирования постов: `php artisan make:request PostRequest`

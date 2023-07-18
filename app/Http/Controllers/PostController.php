@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -18,14 +19,14 @@ class PostController extends Controller
     {
         $s = $request->search;
         if($s)
-            $posts = Post::select('posts.id as post_id', 'title', 'anons', 'img', 'name', 'posts.created_at as post_created_at' )
+            $posts = Post::select('posts.id as post_id', 'title', 'anons', 'img', 'name', 'posts.created_at as post_created_at')
                     ->where('content', 'like', '%'.$s.'%')
-                    ->join('users', 'posts.author_id', '=', 'users.id')
+                    ->join('users', 'author_id', '=', 'users.id')
                     ->orderBy('post_created_at', 'desc')
                     ->paginate(4);
         else{
-            $posts = Post::select('posts.id as post_id', 'title', 'anons', 'img', 'name', 'posts.created_at as post_created_at' )
-                    ->join('users', 'posts.author_id', '=', 'users.id')
+            $posts = Post::select('posts.id as post_id', 'title', 'anons', 'img', 'name', 'posts.created_at as post_created_at')
+                    ->join('users', 'author_id', '=', 'users.id')
                     ->orderBy('post_created_at', 'desc')
                     ->paginate(6);
         }
@@ -49,7 +50,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
         $post = new Post();
         $post->author_id = rand(1,4);
@@ -76,7 +77,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::select('posts.id as post_id', 'title', 'content', 'img', 'name', 'posts.created_at as post_created_at' )
-                    ->join('users', 'posts.author_id', '=', 'users.id')
+                    ->join('users', 'author_id', '=', 'users.id')
                     ->find($id);
         return view('post.show', ['post' => $post]);
     }
