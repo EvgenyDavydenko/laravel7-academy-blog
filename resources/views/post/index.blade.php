@@ -1,4 +1,4 @@
-@extends('layout.main', ['title'=>'Главная страница'])
+@extends('layouts.main', ['title'=>'Главная страница'])
 
 @section('content')
     <div class="row">

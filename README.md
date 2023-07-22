@@ -12,3 +12,4 @@
 10. Реализовал метод edit в PostController
 11. Реализовал методы update и destroy в PostController
 12. Валидация создания и редактирования постов: `php artisan make:request PostRequest`
+13. Регистрация и Аутентификация: `php artisan make:auth`

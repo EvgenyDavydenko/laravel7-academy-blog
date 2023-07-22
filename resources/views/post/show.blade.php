@@ -1,16 +1,20 @@
-@extends('layout.main', ['title' => 'Просмотр поста' ])
+@extends('layouts.main', ['title' => 'Просмотр поста' ])
 
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">            
+                <div class="card-header">
+                        @auth
+                        @if(Auth::user()->id == $post['author_id'])
                         <a href="{{ route('posts.edit', ['id'=>$post['post_id']]) }}" class="btn btn-outline-primary my-2 my-sm-0 float-right">Редактировать</a>
                         <form action="{{ route('posts.destroy', ['id'=>$post['post_id']]) }}" method="POST" onsubmit="if (confirm('Подтвердите удаление поста')) return true; else return false">
                             @csrf
                             @method('DELETE')
                             <input class="btn btn-outline-danger my-2 my-sm-0 float-right" type="submit" value="Удалить">                       
                         </form>
+                        @endif
+                        @endauth
                     <h2 class="cart-title">{{ $post['title'] }}</h2>
                 </div>
                 <div class="card-body">

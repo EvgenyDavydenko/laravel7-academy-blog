@@ -1,4 +1,4 @@
-@extends('layout.main', ['title'=>'Редактирование поста'])
+@extends('layouts.main', ['title'=>'Редактирование поста'])
 
 @section('content')
     <form action="{{ route('posts.update', ['id'=>$post['id']]) }}" method="POST" enctype="multipart/form-data">

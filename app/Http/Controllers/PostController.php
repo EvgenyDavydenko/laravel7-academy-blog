@@ -10,6 +10,10 @@ use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -53,7 +57,7 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         $post = new Post();
-        $post->author_id = rand(1,4);
+        $post->author_id = \Auth::user()->id;
         $post->title = $request->title;
         $post->content = $request->content;
         $post->anons = Str::length($request->content) > 100 ? Str::substr($request->content, 0, 100) . '...' : $request->content;
@@ -76,9 +80,12 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::select('posts.id as post_id', 'title', 'content', 'img', 'name', 'posts.created_at as post_created_at' )
+        $post = Post::select('posts.id as post_id', 'title', 'content', 'img', 'name', 'author_id', 'posts.created_at as post_created_at' )
                     ->join('users', 'author_id', '=', 'users.id')
                     ->find($id);
+                    // echo '<pre>';
+                    // var_dump($post); exit;
+
         return view('post.show', ['post' => $post]);
     }
 
@@ -91,6 +98,9 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
+        if ($post->author_id != \Auth::user()->id){
+            return redirect()->route('posts.index')->withErrors('Вы не можете редактировать данный пост');
+        }
         return view('post.edit', ['post' => $post]);
     }
 
@@ -104,6 +114,9 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $post = Post::find($id);
+        if ($post->author_id != \Auth::user()->id){
+            return redirect()->route('posts.index')->withErrors('Вы не можете обновлять данный пост');
+        }
         $post->title = $request->title;
         $post->content = $request->content;
         $post->anons = Str::length($request->content) > 100 ? Str::substr($request->content, 0, 100) . '...' : $request->content;
@@ -126,6 +139,9 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id);
+        if ($post->author_id != \Auth::user()->id){
+            return redirect()->route('posts.index')->withErrors('Вы не можете удалять данный пост');
+        }
         $post->delete();
         return redirect()->route('posts.index')->with('success', 'Ваш пост успешно удален!');
     }
